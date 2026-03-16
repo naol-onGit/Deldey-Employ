@@ -115,10 +115,10 @@ async def cmd_start(message: types.Message, state: FSMContext) -> None:
     await state.clear()
     await state.set_state(Registration.full_name)
     await message.answer(
-        "👋 Welcome to *Deldey Employment Agency*!\n\n"
-        "We're excited to have you register with us. "
-        "I'll collect a few details to get your profile set up.\n\n"
-        "Let's begin — what is your *Full Name*?",
+        "👋 እንኳን ወደ ድልድይ ሰራተኛ እና አሰሪ አገናኝ Agency መጡ\n\n"
+        "እኛ ጋር ለመመዝገብ በማሰቦ በጣም ደስ ብሎናል. "
+        "እባክዎን አካውንቶን ለማዘጋጀት የሚከተሉትን ጥቂት ዝርዝሮች ይስጡ\n\n"
+        "ሙሉ ስምህ/ሽ ማን ነው?",
         parse_mode="Markdown",
     )
 
@@ -132,7 +132,7 @@ async def step_full_name(message: types.Message, state: FSMContext) -> None:
         return
     await state.update_data(full_name=message.text.strip())
     await state.set_state(Registration.age)
-    await message.answer("Great! How old are you? Please enter your *Age*.", parse_mode="Markdown")
+    await message.answer("በጣም ጥሩ! ስንት አመትህ/ሽ ነው፧ እባክህ እድሜህን/ሽን አስገባ/ቢ።", parse_mode="Markdown")
 
 
 # ---------------------------------------------------------------------------
@@ -143,11 +143,11 @@ async def step_age(message: types.Message, state: FSMContext) -> None:
     if not await reject_non_text(message):
         return
     if not message.text.strip().isdigit():
-        await message.answer("⚠️ Please enter a valid numeric age (e.g. *28*).", parse_mode="Markdown")
+        await message.answer("⚠️ እባክዎ ትክክለኛ የቁጥር ዕድሜዎትን ያስገቡ (ለምሳሌ *28*).", parse_mode="Markdown")
         return
     await state.update_data(age=message.text.strip())
     await state.set_state(Registration.profession)
-    await message.answer("What is your *Profession* or Job Title?", parse_mode="Markdown")
+    await message.answer("የእርስዎ ሙያ ወይም የስራ ዘርፍዎት ምንድነው?", parse_mode="Markdown")
 
 
 # ---------------------------------------------------------------------------
@@ -160,7 +160,7 @@ async def step_profession(message: types.Message, state: FSMContext) -> None:
     await state.update_data(profession=message.text.strip())
     await state.set_state(Registration.education)
     await message.answer(
-        "What is your highest level of *Education*?\n_(e.g. BSc Computer Science, HND Accounting)_",
+        "ከፍተኛው የ ትምህርት ደረጃህ ስንት ነው?\n_(ለምሳሌ BSc Computer Science፣ HND Accounting)_",
         parse_mode="Markdown",
     )
 
@@ -175,7 +175,7 @@ async def step_education(message: types.Message, state: FSMContext) -> None:
     await state.update_data(education=message.text.strip())
     await state.set_state(Registration.experience)
     await message.answer(
-        "How many *Years of Experience* do you have in your field?",
+        "ሙያ መስክህ ስንት አመታት ልምድ አለህ?",
         parse_mode="Markdown",
     )
 
@@ -190,7 +190,7 @@ async def step_experience(message: types.Message, state: FSMContext) -> None:
     await state.update_data(experience=message.text.strip())
     await state.set_state(Registration.primary_phone)
     await message.answer(
-        "Please enter your *Primary Phone Number* (with country code, e.g. +234XXXXXXXXXX).",
+        "እባክዎትን ዋና ስልክ ቁጥርዎን ያስገቡ (በሀገር ኮድ፣ ለምሳሌ +234XXXXXXXXX).",
         parse_mode="Markdown",
     )
 
@@ -205,8 +205,8 @@ async def step_primary_phone(message: types.Message, state: FSMContext) -> None:
     await state.update_data(primary_phone=message.text.strip())
     await state.set_state(Registration.secondary_phone)
     await message.answer(
-        "Almost done! Please enter your *Secondary / WhatsApp Phone Number*.\n"
-        "_(Type *skip* if you don't have one.)_",
+        "ሊጨርስ ነው! እባኮትን *ሁለተኛ/ዋትስአፕ ስልክ ቁጥር* አስገባ።\n"
+        "_(ከሌለህ *skip* ብለው ይፃፉ።)_",
         parse_mode="Markdown",
     )
 
@@ -238,9 +238,9 @@ async def step_secondary_phone(message: types.Message, state: FSMContext) -> Non
     if success:
         await message.answer(
             "✅ *Registration Complete!*\n\n"
-            "Thank you for registering with *Deldey Employment Agency*. "
-            "Our team will review your profile and reach out to you shortly.\n\n"
-            "Good luck! 🌟",
+            "በ *ድልድይ የቅጥር ኤጀንሲ* ስለተመዘገቡ እናመሰግናለን። "
+            "ቡድናችን የእርስዎን ፕሮፋይል ከገመገመ በሁዋላ በቅርቡ ያገኝዎታል።\n\n"
+            "መልካም እድል! 🌟",
             parse_mode="Markdown",
         )
     else:
@@ -257,11 +257,11 @@ async def step_secondary_phone(message: types.Message, state: FSMContext) -> Non
 async def catch_all(message: types.Message) -> None:
     if not message.text:
         await message.answer(
-            "Please provide the requested information in text format."
+            "እባክዎ የተጠየቀውን መረጃ በጽሑፍ ቅርጸት ያቅርቡ."
         )
         return
     await message.answer(
-        "👋 Send /start to begin your registration with *Deldey Employment Agency*.",
+        "👋 ምዝገባዎን በ *ዴልዴይ የቅጥር ኤጀንሲ* ለመጀመር /start ብለው ይላኩ.",
         parse_mode="Markdown",
     )
 
