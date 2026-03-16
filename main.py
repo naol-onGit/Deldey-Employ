@@ -3,7 +3,8 @@ Deldey Employment Agency — Telegram Registration Bot
 Stack: FastAPI + aiogram (webhook mode) + Google Sheets via gspread
 Deployment: Vercel Serverless
 """
-
+from dotenv import load_dotenv
+load_dotenv()  # Load environment variables from .env file (for local development)
 import os
 import json
 import logging
