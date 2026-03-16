@@ -1,0 +1,10 @@
+# Deldey Employment Agency — Telegram Bot
+# Python 3.10+
+
+fastapi>=0.111.0
+uvicorn>=0.29.0          # local dev server
+aiogram>=3.7.0           # Telegram Bot framework
+gspread>=6.1.0           # Google Sheets client
+google-auth>=2.29.0      # Google OAuth2 / service account
+httpx>=0.27.0            # async HTTP (used by aiogram internally)
+python-dotenv>=1.0.1     # load .env during local development
